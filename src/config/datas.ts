@@ -46,7 +46,7 @@ export const blocks = [
             {
                 id: crypto.randomUUID(),
                 type: "footer",
-                title: `@ ${new Date().getFullYear()} ${siteInfo.name}`,
+                title: `Copyright @ ${new Date().getFullYear()} - ${siteInfo.name}`,
             },
         ],
     },
