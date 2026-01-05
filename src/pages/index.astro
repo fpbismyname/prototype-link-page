@@ -7,7 +7,10 @@ import TabsLayout from "../layouts/TabsLayout.astro";
     <template x-for="block in blocks.filter(b => b.href === currentMenu)" :key="block.id">
         <div class="relative">
             <template x-for="section in block.sections" :key="section.id">
-                <div x-data="{shown:false}">
+                <div
+                    x-data="{shown:false, scroll: 0}"
+                    x-init="window.addEventListener('scroll', ()=> scroll = window.scrollY)"
+                >
                     <!-- Header section -->
                     <header
                         x-cloak
@@ -99,11 +102,11 @@ import TabsLayout from "../layouts/TabsLayout.astro";
                         class="fixed top-0 w-full z-10 max-w-md bg-base-100/75 backdrop-blur-xl"
                     >
                         <div
-                            class="flex flex-row justify-between py-2 px-6 items-center transition-all duration-500"
+                            class="flex flex-row justify-between py-4 px-6 items-center transition-all duration-500"
                             x-intersect="shown=true"
                             :class="shown ? 'opacity-100' :'opacity-0'"
                         >
-                            <h1 x-text="section.title" class="font-bold"></h1>
+                            <h1 x-text="section.title" class="font-bold text-xl"></h1>
                             <div>
                                 <button
                                     onclick="shareModal.showModal()"
@@ -182,6 +185,18 @@ import TabsLayout from "../layouts/TabsLayout.astro";
                             </div>
                         </template>
                     </div>
+
+                    <!-- Scroll to top -->
+                    <div x-show="section.type == 'fab'" class="fab bottom-24">
+                        <a
+                            x-show="scroll > 250"
+                            class="btn btn-lg btn-circle btn-primary transition-all duration-500"
+                            :href="section.href"
+                            x-transition.opacity.duration.500ms
+                        >
+                            <span x-html="section.icon"></span>
+                        </a>
+                    </div>
                 </div>
             </template>
         </div>
@@ -190,42 +205,20 @@ import TabsLayout from "../layouts/TabsLayout.astro";
     <dialog id="shareModal" class="modal">
         <div class="modal-box">
             <div class="flex flex-col gap-2">
-                <button class="btn btn-accent" x-on:click="copyLink()"
-                    ><svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="lucide lucide-link2-icon lucide-link-2"
-                        ><path d="M9 17H7A5 5 0 0 1 7 7h2"></path><path d="M15 7h2a5 5 0 1 1 0 10h-2"></path><line
-                            x1="8"
-                            x2="16"
-                            y1="12"
-                            y2="12"></line></svg
-                    > Copy link</button
-                >
-                <button class="btn btn-accent" x-on:click="shareToWhatsapp()">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="lucide lucide-message-circle-more-icon lucide-message-circle-more"
-                        ><path
-                            d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"
-                        ></path><path d="M8 12h.01"></path><path d="M12 12h.01"></path><path d="M16 12h.01"></path></svg
-                    > Share to whatsapp
-                </button>
+                <div class="text-xl font-bold mb-4 text-center">Ajak temanmu ke {siteInfo.name}</div>
+                <template x-for="link in shareOptions">
+                    <a
+                        class="btn justify-start"
+                        @click="link.onClick ? link.onClick() : null"
+                        :class="link.type"
+                        :target="link.external ? '_blank' : null"
+                        :rel="link.external ? 'noopener noreferrer' : null"
+                        :href="link.href ? link.href : null"
+                    >
+                        <span x-html="link.icon"></span>
+                        <span x-text="link.label" :id="link.label"></span>
+                    </a>
+                </template>
                 <button class="btn btn-circle btn-ghost btn-sm mx-auto mt-4" onclick="shareModal.close()"
                     ><svg
                         xmlns="http://www.w3.org/2000/svg"
