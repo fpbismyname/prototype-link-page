@@ -1,0 +1,40 @@
+---
+import type { SiteInfoInterface } from "../config/siteInfo";
+import "../styles/global.css";
+
+interface Props extends SiteInfoInterface {}
+
+const TabsProps = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{TabsProps.name}</title>
+        <meta name="description" content={TabsProps.description} />
+    </head>
+    <body class="scroll-smooth">
+        <div class="relative container mx-auto max-w-md">
+            <div class="grid grid-rows-[auto_1fr]" x-data="appData">
+                <div class="flex flex-col min-h-screen scroll-smooth">
+                    <slot />
+                </div>
+                <div class="dock border-0">
+                    <template x-for="menu in blocks" class="hidden">
+                        <button
+                            x-on:click="setMenu(menu.href)"
+                            x-bind:class="menu.href == currentMenu ? 'bg-base-content/10' : ''"
+                        >
+                            <span x-html="menu.icon"></span>
+                            <span x-show="menu.href == currentMenu" x-text="menu.label" class="dock-label" x-transition
+                            ></span>
+                        </button>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <script src="../config/app.ts"></script>
+    </body>
+</html>

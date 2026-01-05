@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@plugin 'daisyui' {
+    root: ":root";
+    themes: coreetiary --default, dark --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+    name: "coreetiary";
+    default: true;
+    prefersdark: false;
+    color-scheme: light;
+
+    /* Base: Mengambil tone Cream/Off-white dari background logo */
+    --color-base-100: oklch(97% 0.01 60); /* Cream sangat muda */
+    --color-base-200: oklch(94% 0.02 60); /* Sedikit lebih gelap untuk kedalaman */
+    --color-base-300: oklch(90% 0.03 60);
+    --color-base-content: oklch(15% 0.02 20); /* Hampir Hitam untuk teks utama */
+
+    /* Primary: Merah Vibrant dari titik tengah logo */
+    /* L: 55%, C: 0.22 (Chroma tinggi untuk saturasi), H: 25.5 (Hue Merah) */
+    --color-primary: oklch(55% 0.22 25.5);
+    --color-primary-content: oklch(98% 0.01 25.5);
+
+    /* Secondary: Hitam Arang / Marmer dari tekstur logo */
+    --color-secondary: oklch(25% 0.02 20); /* Hitam pekat yang elegan */
+    --color-secondary-content: oklch(95% 0.01 20);
+
+    /* Accent: Stone/Marble Highlight */
+    --color-accent: oklch(85% 0.02 60);
+    --color-accent-content: oklch(20% 0.02 20);
+
+    /* Neutral: Untuk elemen UI yang tidak terlalu menonjol */
+    --color-neutral: oklch(35% 0.02 20);
+    --color-neutral-content: oklch(95% 0.01 20);
+
+    /* Utility Colors (Standar DaisyUI dengan tuning ke arah Warm) */
+    --color-info: oklch(70% 0.12 230);
+    --color-success: oklch(65% 0.15 145);
+    --color-warning: oklch(80% 0.15 85);
+    --color-error: oklch(60% 0.2 25);
+
+    /* Border & Radius: Sesuai geometri logo yang tegas namun melingkar */
+    --radius-selector: 1rem; /* Untuk elemen seperti tab/radio */
+    --radius-field: 0.375rem; /* Untuk input agar terlihat modern */
+    --radius-box: 0.75rem; /* Untuk card agar seimbang dengan logo bulat */
+
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+}
+
+[x-cloak] {
+    display: none !important;
+}

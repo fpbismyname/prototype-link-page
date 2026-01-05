@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+    type: "header" | "header-horizontal";
+    title: string;
+    subtitle?: string;
+    picture?: string;
+    dropdown?: {
+        title: string;
+        children: Array<Record<"label" | "value", string>>;
+    };
+}
+
+const HeaderProps = Astro.props;
+---
+
+{
+    HeaderProps.type === "header" && (
+        <header class="flex flex-col items-center">
+            <Image src={HeaderProps.picture} alt={`profile picture ${HeaderProps.title}`} width={500} height={500} />
+            <h1>{HeaderProps.title}</h1>
+            <h1>{HeaderProps.subtitle}</h1>
+        </header>
+    )
+}
+
+{
+    HeaderProps.type === "header-horizontal" && (
+        <header class="flex flex-row justify-between">
+            <div>
+                <h1>{HeaderProps.title}</h1>
+            </div>
+            <div>
+                <div class="dropdown">
+                    <div tabindex="-1" role="button" class="btn btn-ghost">
+                        {HeaderProps.dropdown.title}
+                    </div>
+                    <ul class="dropdown-content menu menu-vertical bg-base-100 shadow-xl w-32">
+                        {HeaderProps.dropdown.children.map((item) => {
+                            return (
+                                <li>
+                                    <a href={item.value}>{item.label}</a>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            </div>
+        </header>
+    )
+}
