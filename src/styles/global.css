@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin 'daisyui' {
     root: ":root";
-    themes: coreetiary --default, dark --prefersdark;
+    themes: coreetiary --default, coreetiary-dark --prefersdark;
 }
 
 @plugin "daisyui/theme" {
@@ -43,6 +43,51 @@
     --radius-selector: 1rem; /* Untuk elemen seperti tab/radio */
     --radius-field: 0.375rem; /* Untuk input agar terlihat modern */
     --radius-box: 0.75rem; /* Untuk card agar seimbang dengan logo bulat */
+
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+}
+@plugin "daisyui/theme" {
+    name: "coreetiary-dark";
+    default: false;
+    prefersdark: true;
+    color-scheme: dark;
+
+    /* Base: Membalikkan peran. Menggunakan Hitam Arang logo sebagai latar utama */
+    --color-base-100: oklch(20% 0.02 20); /* Hitam Arang Gelap */
+    --color-base-200: oklch(15% 0.02 20); /* Lebih gelap untuk elevasi/input */
+    --color-base-300: oklch(10% 0.02 20);
+    --color-base-content: oklch(95% 0.01 60); /* Teks Cream pucat agar nyaman di mata */
+
+    /* Primary: Merah tetap dipertahankan, sedikit penyesuaian kecerahan untuk Dark Mode */
+    --color-primary: oklch(60% 0.22 25.5); /* Sedikit lebih terang (L: 60%) agar "pop" di background gelap */
+    --color-primary-content: oklch(15% 0.02 25.5);
+
+    /* Secondary: Menggunakan tone abu-abu hangat agar tidak terlalu flat */
+    --color-secondary: oklch(35% 0.02 20);
+    --color-secondary-content: oklch(95% 0.01 20);
+
+    /* Accent: Mengambil tone emas/cream redup dari logo untuk highlight */
+    --color-accent: oklch(45% 0.05 60);
+    --color-accent-content: oklch(98% 0.01 60);
+
+    /* Neutral: Warna UI pendukung */
+    --color-neutral: oklch(25% 0.02 20);
+    --color-neutral-content: oklch(90% 0.01 20);
+
+    /* Utility Colors (Disesuaikan untuk visibilitas di layar gelap) */
+    --color-info: oklch(65% 0.12 230);
+    --color-success: oklch(65% 0.15 145);
+    --color-warning: oklch(75% 0.15 85);
+    --color-error: oklch(55% 0.2 25);
+
+    /* Border & Radius (Konsisten dengan versi light) */
+    --radius-selector: 1rem;
+    --radius-field: 0.375rem;
+    --radius-box: 0.75rem;
 
     --size-selector: 0.25rem;
     --size-field: 0.25rem;
