@@ -100,8 +100,8 @@ export const shareOptions = [
             const textCopyButtonElement = document.getElementById("Bagikan Link");
             if (navigator.share) {
                 navigator.share({
-                    title: `siteInfo.name\n`,
-                    text: `siteInfo.description\n`,
+                    title: `${siteInfo.name}\n`,
+                    text: `${siteInfo.description}\n`,
                     url: currentUrl.origin,
                 });
             } else {
