@@ -14,11 +14,19 @@ export type ListMenuType = Array<{
     picture: string;
 }>;
 
+export type ListProductsType = Array<{
+    id: string;
+    title: string;
+    description: string;
+    image: Array<string>;
+}>;
+
 export const siteInfo = {
     name: "Selama kopi",
     description: "Kopi selamanya dari cianjur kota",
     slogan: "Ngopi selalu dan selamanya",
-    picture: "https://dummyimage.com/500x500",
+    picture: "/brand/logo.jpg",
+    bgCover: "/brand/cover-bg.jpg",
     numberWhatsapp: "0895404545040",
     linkMaps: "https://google.maps.com",
     socials: [
@@ -62,30 +70,30 @@ export const listProducts = [
         id: "coffee",
         title: "Coffee",
         description: "Hot & classic coffee based drinks",
-        image: "https://dummyimage.com/720x1280",
+        image: ["/list-menu/menu1.jpg", "/list-menu/menu2.jpg"],
     },
     {
         id: "milk-based-coffee",
         title: "Milk Based Coffee",
         description: "Coffee mixed with milk and flavor",
-        image: "https://dummyimage.com/720x1280",
+        image: ["/list-menu/menu3.jpg"],
     },
     {
         id: "manual-brew",
         title: "Manual Brew",
         description: "Hand-brewed single origin coffee",
-        image: "https://dummyimage.com/720x1280",
+        image: ["/list-menu/menu4.jpg", "/list-menu/menu5.jpg"],
     },
     {
         id: "non-coffee",
         title: "Non Coffee",
         description: "No caffeine drinks",
-        image: "https://dummyimage.com/720x1280",
+        image: ["/list-menu/menu6.jpg"],
     },
     {
         id: "breeds-and-snacks",
         title: "Breads & Snacks",
         description: "Fresh bakery and light snacks",
-        image: "https://dummyimage.com/720x1280",
+        image: ["/list-menu/menu7.jpg"],
     },
-];
+] as ListProductsType;

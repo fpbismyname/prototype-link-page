@@ -34,18 +34,22 @@ export const blocks = [
         href: "home",
         icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>`,
         sections: [
+            // hero profile
             {
                 id: crypto.randomUUID(),
                 type: "header",
                 title: siteInfo.name,
                 subtitle: siteInfo.slogan,
                 picture: siteInfo.picture,
+                bgCover: siteInfo.bgCover,
             },
+            // List links
             {
                 id: crypto.randomUUID(),
                 type: "links",
                 children: siteInfo.socials,
             },
+            // Footer
             {
                 id: crypto.randomUUID(),
                 type: "footer",
@@ -57,8 +61,9 @@ export const blocks = [
         id: crypto.randomUUID(),
         label: "Menu",
         href: "menu",
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text-icon lucide-file-text"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>`,
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-list-icon lucide-clipboard-list"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>`,
         sections: [
+            // Header horizontal
             {
                 id: crypto.randomUUID(),
                 type: "header-horizontal",
@@ -68,16 +73,18 @@ export const blocks = [
                     children: listProducts.map((item) => ({ label: item.title, value: item.id })),
                 },
             },
+            // List products
             {
                 id: crypto.randomUUID(),
                 type: "list-grid",
                 children: listProducts,
             },
+            // Fab button
             {
                 id: crypto.randomUUID(),
                 href: "#",
                 type: "fab",
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-icon lucide-arrow-up"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>`,
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-from-line-icon lucide-arrow-up-from-line"><path d="m18 9-6-6-6 6"/><path d="M12 3v14"/><path d="M5 21h14"/></svg>`,
             },
         ],
     },
@@ -89,16 +96,16 @@ export const shareOptions = [
         external: true,
         icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2-icon lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>`,
         onClick() {
-            const currentUrl = window.location.href;
+            const currentUrl = new URL(window.location.href);
             const textCopyButtonElement = document.getElementById("Bagikan Link");
             if (navigator.share) {
                 navigator.share({
-                    title: siteInfo.name,
-                    text: siteInfo.description,
-                    url: currentUrl,
+                    title: `siteInfo.name\n`,
+                    text: `siteInfo.description\n`,
+                    url: currentUrl.origin,
                 });
             } else {
-                navigator.clipboard.writeText(currentUrl);
+                navigator.clipboard.writeText(currentUrl.origin);
                 textCopyButtonElement.innerText = "Disalin";
                 const copyButtonElement = textCopyButtonElement.parentElement as HTMLButtonElement;
                 copyButtonElement.disabled = true;

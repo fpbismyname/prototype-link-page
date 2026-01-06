@@ -24,12 +24,16 @@ const TabsProps = Astro.props;
                 <div class="dock bg-base-200">
                     <template x-for="menu in blocks" class="hidden">
                         <button
-                            x-on:click="setMenu(menu.href)"
-                            x-bind:class="menu.href == currentMenu ? 'bg-base-content/10' : ''"
+                            class="transition-all duration-200"
+                            @click="setMenu(menu.href)"
+                            :class="menu.href == currentMenu ? 'bg-base-300 font-bold' : ''"
                         >
                             <span x-html="menu.icon"></span>
-                            <span x-show="menu.href == currentMenu" x-text="menu.label" class="dock-label" x-transition
-                            ></span>
+                            <span
+                                x-show="menu.href == currentMenu"
+                                x-text="menu.label"
+                                class="dock-label"
+                                x-transition.opacity.duration.200ms></span>
                         </button>
                     </template>
                 </div>
